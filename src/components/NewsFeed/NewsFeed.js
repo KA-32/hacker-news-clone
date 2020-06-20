@@ -12,30 +12,8 @@ const NewsFeed = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isLoaderVisible, setLoaderVisibility] = useState(false);
 
-  const data = [
-    {
-      author: "leetsquad",
-      comment_text:
-        "I believe it might just be that we are used to safe incremental building now.<p>For example, building a feature on top of a successful product will get 5% gain with 80% certainty.<p>Building something completely new will give 10x gain with 2% certainty.<p>Management is more likely to favor the 5% gain because it gives safe returns and they can explain it well to whoever they are reporting to.<p>Also, I believe the same applies to startups. A founder has to explain crazy bets to investors, employees and everyone in the company. That&#x27;s notnas easy as it sounds.",
-      created_at: "2020-06-19T13:49:42.000Z",
-      created_at_i: 1592574582,
-      num_comments: null,
-      objectID: "23574492",
-      parent_id: 23569638,
-      points: null,
-      story_id: 23569638,
-      story_text: null,
-      story_title: "On Cultures That Build",
-      story_url:
-        "https://scholars-stage.blogspot.com/2020/06/on-cultures-that-build.html",
-      title: null,
-      url: null,
-    },
-  ];
-
   useEffect(() => {
     getNewsFeed(0);
-    //setNewsFeed(data);
   }, []);
 
   const getNewsFeed = async (page) => {
@@ -50,9 +28,22 @@ const NewsFeed = () => {
       setLoaderVisibility(false);
     }
   };
+
   const handleHideBtnClick = (e) => {
-    console.log(e.currentTarget.dataset);
-    //setNewsFeed(data);
+    let index;
+    let newsFeedData = newsFeed;
+    for (let i = 0; i < newsFeed.length; i++) {
+      if (newsFeed[i].objectID === e.currentTarget.dataset.id) {
+        index = i;
+        break;
+      }
+    }
+
+    if (index || index === 0) {
+      newsFeedData.splice(index, 1);
+      setLoaderVisibility(false);
+      setNewsFeed(newsFeedData);
+    }
   };
 
   const handlePrevClick = (e) => {
@@ -127,8 +118,7 @@ const NewsFeed = () => {
                       </span>
                       <button
                         className="news-hide"
-                        data-title={value.title}
-                        data-index={index}
+                        data-id={value.objectID}
                         onClick={handleHideBtnClick}
                       >
                         [hide]
@@ -138,7 +128,11 @@ const NewsFeed = () => {
                 )
               );
             })}
-          {isLoaderVisible && <div>Loading...</div>}
+          {isLoaderVisible && (
+            <tr>
+              <td>Loading...</td>
+            </tr>
+          )}
         </tbody>
       </table>
       <div className="btn-wrapper">

@@ -30,24 +30,22 @@ function App() {
     );
     if (newsFeedResponse.ok) {
       let jsonData = await newsFeedResponse.json();
-      console.log(jsonData);
-
+      setCurrentPage(page);
       setNewsFeed(jsonData.hits);
     }
   };
 
-  const next = (page) => {
-    setCurrentPage(page);
-    getNewsFeed(page);
+  const next = () => {
+    getNewsFeed(currentPage + 1);
   };
 
-  const previous = (page) => {
-    setCurrentPage(page);
-    getNewsFeed(page);
+  const previous = () => {
+    if (currentPage > 0) {
+      getNewsFeed(currentPage - 1);
+    }
   };
 
   const handleHideBtnClick = (data) => {
-    console.log(data);
     setNewsFeed(data);
   };
 

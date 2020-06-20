@@ -8,7 +8,6 @@ import React, { useState } from "react";
 import "./NewsFeed.css";
 
 const NewsFeed = (props) => {
-  const [currentPage] = useState(props.currentPage);
   const [upvotes, setUpvote] = useState({});
 
   const handleHideBtnClick = (e) => {
@@ -28,13 +27,11 @@ const NewsFeed = (props) => {
   };
 
   const handlePrevClick = (e) => {
-    if (currentPage > 0) {
-      props.previous(currentPage - 1);
-    }
+    props.previous();
   };
 
   const handleNextClick = (e) => {
-    props.next(currentPage + 1);
+    props.next();
   };
 
   const handleUpvote = (e) => {
@@ -52,7 +49,6 @@ const NewsFeed = (props) => {
     setUpvote(upvotesUpdate);
     localStorage.setItem("upvotes", JSON.stringify(upvotesUpdate));
     //Store upvotes locally.
-    
   };
 
   const renderRows = () => {

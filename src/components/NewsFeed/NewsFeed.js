@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 
 import "./NewsFeed.css";
 
-const NewsFeed = () => {
+const NewsFeed = (props) => {
   const [newsFeed, setNewsFeed] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [isLoaderVisible, setLoaderVisibility] = useState(false);
@@ -26,6 +26,7 @@ const NewsFeed = () => {
       console.log(jsonData);
       setNewsFeed(jsonData.hits);
       setLoaderVisibility(false);
+      props.handleData(jsonData.hits);
     }
   };
 

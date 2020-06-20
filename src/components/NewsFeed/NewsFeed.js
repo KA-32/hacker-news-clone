@@ -3,38 +3,18 @@
  * @component
  * Initialise view with required components.
  */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import "./NewsFeed.css";
 
 const NewsFeed = (props) => {
-  const [newsFeed, setNewsFeed] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [isLoaderVisible, setLoaderVisibility] = useState(false);
-
-  useEffect(() => {
-    getNewsFeed(0);
-  }, []);
-
-  const getNewsFeed = async (page) => {
-    setLoaderVisibility(true);
-    const newsFeedResponse = await fetch(
-      `https://hn.algolia.com/api/v1/search_by_date?page=${page}&tags=story`
-    );
-    if (newsFeedResponse.ok) {
-      let jsonData = await newsFeedResponse.json();
-      console.log(jsonData);
-      setNewsFeed(jsonData.hits);
-      setLoaderVisibility(false);
-      props.handleData(jsonData.hits);
-    }
-  };
+  const [currentPage] = useState(props.currentPage);
 
   const handleHideBtnClick = (e) => {
     let index;
-    let newsFeedData = newsFeed;
-    for (let i = 0; i < newsFeed.length; i++) {
-      if (newsFeed[i].objectID === e.currentTarget.dataset.id) {
+    let newsFeedData = [...props.data];
+    for (let i = 0; i < props.data.length; i++) {
+      if (props.data[i].objectID === e.currentTarget.dataset.id) {
         index = i;
         break;
       }
@@ -42,21 +22,18 @@ const NewsFeed = (props) => {
 
     if (index || index === 0) {
       newsFeedData.splice(index, 1);
-      setLoaderVisibility(false);
-      setNewsFeed(newsFeedData);
+      props.hideStory(newsFeedData);
     }
   };
 
   const handlePrevClick = (e) => {
     if (currentPage > 0) {
-      getNewsFeed(currentPage - 1);
-      setCurrentPage(currentPage - 1);
+      props.previous(currentPage - 1);
     }
   };
 
   const handleNextClick = (e) => {
-    getNewsFeed(currentPage + 1);
-    setCurrentPage(currentPage + 1);
+    props.next(currentPage + 1);
   };
 
   const handleUpvote = (e) => {
@@ -69,6 +46,46 @@ const NewsFeed = (props) => {
       parseInt(currentCount) + 1
     );
     console.log(localStorage.getItem(e.currentTarget.dataset.id));
+  };
+
+  const renderRows = () => {
+    return props.data.map(function (value, index) {
+      return (
+        value.title && (
+          <tr key={value.objectID} className="news-feed-data-row">
+            <td className="news-feed-data-item center">{value.num_comments}</td>
+            <td className="news-feed-data-item center">
+              {localStorage.getItem(value.objectID)
+                ? localStorage.getItem(value.objectID)
+                : 0}
+            </td>
+            <td className="news-feed-data-item center">
+              <button data-id={value.objectID} onClick={handleUpvote}>
+                Upvote
+              </button>
+            </td>
+            <td className="news-feed-data-item left">
+              <h4 className="news-title">{value.title}</h4>
+              <a href={value.url} className="news-link">
+                {"(" + value.url + ")"}
+              </a>
+              <div className="news-author">
+                <span>By</span>
+                <span className="news-author-name">{value.author}</span>
+              </div>
+              <span className="news-last-updated-ts">{value.created_at}</span>
+              <button
+                className="news-hide"
+                data-id={value.objectID}
+                onClick={handleHideBtnClick}
+              >
+                [hide]
+              </button>
+            </td>
+          </tr>
+        )
+      );
+    });
   };
 
   return (
@@ -87,53 +104,48 @@ const NewsFeed = (props) => {
           </tr>
         </thead>
         <tbody>
-          {!isLoaderVisible &&
-            newsFeed.map((value, index) => {
-              return (
-                value.title && (
-                  <tr key={index} className="news-feed-data-row">
-                    <td className="news-feed-data-item center">
-                      {value.num_comments}
-                    </td>
-                    <td className="news-feed-data-item center">
-                      {localStorage.getItem(value.objectID)
-                        ? localStorage.getItem(value.objectID)
-                        : 0}
-                    </td>
-                    <td className="news-feed-data-item center">
-                      <button data-id={value.objectID} onClick={handleUpvote}>
-                        Upvote
-                      </button>
-                    </td>
-                    <td className="news-feed-data-item left">
-                      <h4 className="news-title">{value.title}</h4>
-                      <a href={value.url} className="news-link">
-                        {"(" + value.url + ")"}
-                      </a>
-                      <div className="news-author">
-                        <span>By</span>
-                        <span className="news-author-name">{value.author}</span>
-                      </div>
-                      <span className="news-last-updated-ts">
-                        {value.created_at}
-                      </span>
-                      <button
-                        className="news-hide"
-                        data-id={value.objectID}
-                        onClick={handleHideBtnClick}
-                      >
-                        [hide]
-                      </button>
-                    </td>
-                  </tr>
-                )
-              );
-            })}
-          {isLoaderVisible && (
-            <tr>
-              <td>Loading...</td>
-            </tr>
-          )}
+          {/* {props.data.map((value, index) => {
+            return (
+              value.title && (
+                <tr key={index} className="news-feed-data-row">
+                  <td className="news-feed-data-item center">
+                    {value.num_comments}
+                  </td>
+                  <td className="news-feed-data-item center">
+                    {localStorage.getItem(value.objectID)
+                      ? localStorage.getItem(value.objectID)
+                      : 0}
+                  </td>
+                  <td className="news-feed-data-item center">
+                    <button data-id={value.objectID} onClick={handleUpvote}>
+                      Upvote
+                    </button>
+                  </td>
+                  <td className="news-feed-data-item left">
+                    <h4 className="news-title">{value.title}</h4>
+                    <a href={value.url} className="news-link">
+                      {"(" + value.url + ")"}
+                    </a>
+                    <div className="news-author">
+                      <span>By</span>
+                      <span className="news-author-name">{value.author}</span>
+                    </div>
+                    <span className="news-last-updated-ts">
+                      {value.created_at}
+                    </span>
+                    <button
+                      className="news-hide"
+                      data-id={value.objectID}
+                      onClick={handleHideBtnClick}
+                    >
+                      [hide]
+                    </button>
+                  </td>
+                </tr>
+              )
+            );
+          })} */}
+          {renderRows()}
         </tbody>
       </table>
       <div className="btn-wrapper">

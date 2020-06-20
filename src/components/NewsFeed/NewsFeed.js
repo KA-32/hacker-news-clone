@@ -9,6 +9,7 @@ import "./NewsFeed.css";
 
 const NewsFeed = (props) => {
   const [currentPage] = useState(props.currentPage);
+  const [upvotes, setUpvote] = useState({});
 
   const handleHideBtnClick = (e) => {
     let index;
@@ -37,15 +38,21 @@ const NewsFeed = (props) => {
   };
 
   const handleUpvote = (e) => {
-    let currentCount = localStorage.getItem(e.currentTarget.dataset.id);
-    if (!currentCount) {
-      currentCount = 0;
+    let upvotesUpdate = { ...upvotes };
+
+    if (
+      upvotesUpdate[e.currentTarget.dataset.id] ||
+      upvotesUpdate[e.currentTarget.dataset.id] === 0
+    ) {
+      upvotesUpdate[e.currentTarget.dataset.id]++;
+    } else {
+      upvotesUpdate[e.currentTarget.dataset.id] = 0;
     }
-    localStorage.setItem(
-      e.currentTarget.dataset.id,
-      parseInt(currentCount) + 1
-    );
-    console.log(localStorage.getItem(e.currentTarget.dataset.id));
+
+    setUpvote(upvotesUpdate);
+    localStorage.setItem("upvotes", JSON.stringify(upvotesUpdate));
+    //Store upvotes locally.
+    
   };
 
   const renderRows = () => {
@@ -55,9 +62,7 @@ const NewsFeed = (props) => {
           <tr key={value.objectID} className="news-feed-data-row">
             <td className="news-feed-data-item center">{value.num_comments}</td>
             <td className="news-feed-data-item center">
-              {localStorage.getItem(value.objectID)
-                ? localStorage.getItem(value.objectID)
-                : 0}
+              {upvotes[value.objectID]}
             </td>
             <td className="news-feed-data-item center">
               <button data-id={value.objectID} onClick={handleUpvote}>
@@ -103,50 +108,7 @@ const NewsFeed = (props) => {
             <th className="news-feed-header-item left">News Details</th>
           </tr>
         </thead>
-        <tbody>
-          {/* {props.data.map((value, index) => {
-            return (
-              value.title && (
-                <tr key={index} className="news-feed-data-row">
-                  <td className="news-feed-data-item center">
-                    {value.num_comments}
-                  </td>
-                  <td className="news-feed-data-item center">
-                    {localStorage.getItem(value.objectID)
-                      ? localStorage.getItem(value.objectID)
-                      : 0}
-                  </td>
-                  <td className="news-feed-data-item center">
-                    <button data-id={value.objectID} onClick={handleUpvote}>
-                      Upvote
-                    </button>
-                  </td>
-                  <td className="news-feed-data-item left">
-                    <h4 className="news-title">{value.title}</h4>
-                    <a href={value.url} className="news-link">
-                      {"(" + value.url + ")"}
-                    </a>
-                    <div className="news-author">
-                      <span>By</span>
-                      <span className="news-author-name">{value.author}</span>
-                    </div>
-                    <span className="news-last-updated-ts">
-                      {value.created_at}
-                    </span>
-                    <button
-                      className="news-hide"
-                      data-id={value.objectID}
-                      onClick={handleHideBtnClick}
-                    >
-                      [hide]
-                    </button>
-                  </td>
-                </tr>
-              )
-            );
-          })} */}
-          {renderRows()}
-        </tbody>
+        <tbody>{renderRows()}</tbody>
       </table>
       <div className="btn-wrapper">
         <button className="prev" onClick={handlePrevClick}>

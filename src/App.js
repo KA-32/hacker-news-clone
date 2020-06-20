@@ -31,6 +31,7 @@ function App() {
     if (newsFeedResponse.ok) {
       let jsonData = await newsFeedResponse.json();
       console.log(jsonData);
+
       setNewsFeed(jsonData.hits);
     }
   };

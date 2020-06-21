@@ -1,25 +1,20 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { select, selectAll } from "d3-selection";
 import { axisBottom, axisLeft } from "d3-axis";
 import { transition } from "d3-transition";
 
-class Axis extends React.Component {
-  constructor() {
-    super();
-    this.ref = React.createRef();
-  }
+const Axis = (props) => {
+  const { orient, transform } = props;
+  const myRef = useRef();
 
-  componentDidMount() {
-    this.renderAxis();
-  }
+  useEffect(() => {
+    renderAxis();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  componentDidUpdate() {
-    this.updateAxis();
-  }
-
-  renderAxis() {
-    const { scale, orient, ticks } = this.props;
-    const node = this.ref.current;
+  const renderAxis = () => {
+    const { scale, orient, ticks } = props;
+    const node = myRef.current;
     let axis;
     if (orient === "bottom") {
       axis = axisBottom(scale);
@@ -28,24 +23,19 @@ class Axis extends React.Component {
       axis = axisLeft(scale).ticks(ticks);
     }
     select(node).call(axis);
-  }
+  };
 
-  updateAxis() {
-    const { scale, orient, ticks } = this.props;
+  useEffect(() => {
+    const { scale, orient, ticks } = props;
     const t = transition().duration(1000);
 
     if (orient === "left") {
       const axis = axisLeft(scale).ticks(ticks);
       selectAll(`.${orient}`).transition(t).call(axis);
     }
-  }
-  
-  render() {
-    const { orient, transform } = this.props;
-    return (
-      <g ref={this.ref} transform={transform} className={`${orient} axis`} />
-    );
-  }
-}
+  }, [props, props.scale, props.orient, props.ticks]);
+
+  return <g ref={myRef} transform={transform} className={`${orient} axis`} />;
+};
 
 export default Axis;

@@ -3,7 +3,7 @@
   width: 100%;
 }
 
-.news-feed-header-item.left {
+.news-feed-header-item.left-align {
   text-align: left;
 }
 
@@ -20,7 +20,7 @@
   padding: 15px;
 }
 
-.news-feed-data-item.left {
+.news-feed-data-item.left-align {
   text-align: left;
 }
 

@@ -78,7 +78,7 @@ const NewsFeed = (props) => {
                 <img className="upvote-icon" src={upvoteIcon} alt="Upvote" />
               </button>
             </td>
-            <td className="news-feed-data-item left">
+            <td className="news-feed-data-item left-align">
               <h4 className="news-title">{value.title}</h4>
               <a href={value.url} className="news-link">
                 {"(" + (value.url ? value.url : "") + ")"}
@@ -114,7 +114,7 @@ const NewsFeed = (props) => {
               Vote Count
             </th>
             <th className="news-feed-header-item fixed-width center">Upvote</th>
-            <th className="news-feed-header-item left">News Details</th>
+            <th className="news-feed-header-item left-align">News Details</th>
           </tr>
         </thead>
         <tbody>{renderRows()}</tbody>

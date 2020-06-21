@@ -5,6 +5,8 @@
  */
 import React, { useState, useEffect } from "react";
 
+import upvoteIcon from "../../assets/ic-upvote.png";
+
 import "./NewsFeed.css";
 
 const NewsFeed = (props) => {
@@ -68,14 +70,18 @@ const NewsFeed = (props) => {
                 : upvotes[value.objectID]}
             </td>
             <td className="news-feed-data-item center">
-              <button data-id={value.objectID} onClick={handleUpvote}>
-                Upvote
+              <button
+                className="upvote"
+                data-id={value.objectID}
+                onClick={handleUpvote}
+              >
+                <img className="upvote-icon" src={upvoteIcon} alt="Upvote" />
               </button>
             </td>
             <td className="news-feed-data-item left">
               <h4 className="news-title">{value.title}</h4>
               <a href={value.url} className="news-link">
-                {"(" + value.url + ")"}
+                {"(" + (value.url ? value.url : "") + ")"}
               </a>
               <div className="news-author">
                 <span>By</span>

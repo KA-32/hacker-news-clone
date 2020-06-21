@@ -44,6 +44,16 @@
   margin-left: 5px;
 }
 
+.news-feed-data-item .upvote {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.news-feed-data-item .upvote-icon{
+  width: 30px;
+}
+
 .news-feed-data-item .news-hide {
   margin-left: 10px;
   background-color: transparent;

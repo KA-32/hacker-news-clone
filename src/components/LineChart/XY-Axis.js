@@ -1,18 +1,20 @@
-import React from 'react';
-import Axis from './Axis';
+import React from "react";
+import Axis from "./Axis";
 
 const XYAxis = ({ xScale, yScale, height }) => {
   const xSettings = {
     scale: xScale,
-    orient: 'bottom',
+    orient: "bottom",
     transform: `translate(0, ${height})`,
   };
+
   const ySettings = {
     scale: yScale,
-    orient: 'left',
-    transform: 'translate(0, 0)',
+    orient: "left",
+    transform: "translate(0, 0)",
     ticks: 6,
   };
+
   return (
     <g className="axis-group">
       <Axis {...xSettings} />

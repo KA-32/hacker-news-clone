@@ -8,17 +8,19 @@ class Axis extends React.Component {
     super();
     this.ref = React.createRef();
   }
+
   componentDidMount() {
     this.renderAxis();
   }
+
   componentDidUpdate() {
     this.updateAxis();
   }
+
   renderAxis() {
     const { scale, orient, ticks } = this.props;
     const node = this.ref.current;
     let axis;
-
     if (orient === "bottom") {
       axis = axisBottom(scale);
     }
@@ -27,6 +29,7 @@ class Axis extends React.Component {
     }
     select(node).call(axis);
   }
+
   updateAxis() {
     const { scale, orient, ticks } = this.props;
     const t = transition().duration(1000);
@@ -36,6 +39,7 @@ class Axis extends React.Component {
       selectAll(`.${orient}`).transition(t).call(axis);
     }
   }
+  
   render() {
     const { orient, transform } = this.props;
     return (

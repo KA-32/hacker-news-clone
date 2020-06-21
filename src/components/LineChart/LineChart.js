@@ -6,6 +6,7 @@ import { transition } from "d3-transition";
 
 import XYAxis from "./XY-Axis";
 import Line from "./Line";
+import './LineChart.css';
 
 const LineChart = (props) => {
   const { data } = props;
@@ -40,7 +41,7 @@ const LineChart = (props) => {
     .y((d) => yScale(d.votes));
 
   return (
-    <div>
+    <div className="chart-wrapper">
       <svg
         className="lineChartSvg"
         width={width + margins.left + margins.right}

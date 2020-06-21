@@ -28,7 +28,11 @@ const Axis = (props) => {
   useEffect(() => {
     const { scale, orient, ticks } = props;
     const t = transition().duration(1000);
-
+    if (orient === "bottom") {
+      const node = myRef.current;
+      const axis = axisBottom(scale);
+      select(node).call(axis);
+    }
     if (orient === "left") {
       const axis = axisLeft(scale).ticks(ticks);
       selectAll(`.${orient}`).transition(t).call(axis);

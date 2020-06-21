@@ -3,12 +3,16 @@
  * @component
  * Initialise view with required components.
  */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./NewsFeed.css";
 
 const NewsFeed = (props) => {
-  const [upvotes, setUpvote] = useState({});
+  const [upvotes, setUpvote] = useState(props.upvotes);
+
+  useEffect(() => {
+    setUpvote(props.upvotes);
+  }, [props.upvotes]);
 
   const handleHideBtnClick = (e) => {
     let index;
@@ -43,11 +47,12 @@ const NewsFeed = (props) => {
     ) {
       upvotesUpdate[e.currentTarget.dataset.id]++;
     } else {
-      upvotesUpdate[e.currentTarget.dataset.id] = 0;
+      //already initialised with 0. So increment by 1.
+      upvotesUpdate[e.currentTarget.dataset.id] = 1;
     }
-
     setUpvote(upvotesUpdate);
     localStorage.setItem("upvotes", JSON.stringify(upvotesUpdate));
+    props.handleUpvote(upvotesUpdate);
     //Store upvotes locally.
   };
 
@@ -58,7 +63,9 @@ const NewsFeed = (props) => {
           <tr key={value.objectID} className="news-feed-data-row">
             <td className="news-feed-data-item center">{value.num_comments}</td>
             <td className="news-feed-data-item center">
-              {upvotes[value.objectID]}
+              {!upvotes[value.objectID] || upvotes[value.objectID] === 0
+                ? 0
+                : upvotes[value.objectID]}
             </td>
             <td className="news-feed-data-item center">
               <button data-id={value.objectID} onClick={handleUpvote}>

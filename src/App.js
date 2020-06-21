@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import NewsFeed from "./components/NewsFeed/NewsFeed";
 import LineChart from "./components/LineChart/LineChart";
 
+import loaderGif from "./assets/loader.gif";
+
 import "./App.css";
 
 function App() {
@@ -10,6 +12,7 @@ function App() {
   const [chartData, setChartData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [upvotes, setUpvote] = useState({});
+  const [isLoaderVisible, setLoaderVisiblity] = useState(false);
 
   useEffect(() => {
     getNewsFeed(0);
@@ -34,11 +37,13 @@ function App() {
   }, [newsFeed, upvotes]);
 
   const getNewsFeed = async (page) => {
+    setLoaderVisiblity(true);
     const newsFeedResponse = await fetch(
       `https://hn.algolia.com/api/v1/search_by_date?page=${page}&tags=story`
     );
     if (newsFeedResponse.ok) {
       let jsonData = await newsFeedResponse.json();
+      setLoaderVisiblity(false);
       setCurrentPage(page);
       setNewsFeed(jsonData.hits);
     }
@@ -72,6 +77,11 @@ function App() {
         hideStory={handleHideBtnClick}
         handleUpvote={handleUpvote}
       />
+      {isLoaderVisible && (
+        <div className="loader">
+          <img src={loaderGif} alt="Loading indicator" />
+        </div>
+      )}
       <LineChart data={chartData} />
     </section>
   );

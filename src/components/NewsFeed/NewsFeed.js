@@ -65,9 +65,11 @@ const NewsFeed = (props) => {
           <tr key={value.objectID} className="news-feed-data-row">
             <td className="news-feed-data-item center">{value.num_comments}</td>
             <td className="news-feed-data-item center">
-              {!upvotes[value.objectID] || upvotes[value.objectID] === 0
-                ? 0
-                : upvotes[value.objectID]}
+              {upvotes
+                ? !upvotes[value.objectID] || upvotes[value.objectID] === 0
+                  ? 0
+                  : upvotes[value.objectID]
+                : 0}
             </td>
             <td className="news-feed-data-item center">
               <button

@@ -29,7 +29,7 @@ function App() {
     let chartValues = newsFeed.map((value) => {
       let chartVal = {};
       chartVal.id = value.objectID;
-      chartVal.votes = upvotes[value.objectID] ? upvotes[value.objectID] : 0;
+      chartVal.votes = (upvotes && upvotes[value.objectID]) ? upvotes[value.objectID] : 0;
       return chartVal;
     });
 

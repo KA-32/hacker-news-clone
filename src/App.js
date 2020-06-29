@@ -46,6 +46,10 @@ function App() {
       setLoaderVisiblity(false);
       setCurrentPage(page);
       setNewsFeed(jsonData.hits);
+    }else{
+      setLoaderVisiblity(true);
+      setCurrentPage(page);
+      setNewsFeed([]);
     }
   };
 

@@ -86,6 +86,7 @@ function App() {
           <img src={loaderGif} alt="Loading indicator" />
         </div>
       )}
+      
       <LineChart data={chartData} />
     </section>
   );

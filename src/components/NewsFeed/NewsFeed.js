@@ -124,7 +124,11 @@ const NewsFeed = (props) => {
         <tbody>{renderRows()}</tbody>
       </table>
       <div className="btn-wrapper">
-        <button className="prev" onClick={handlePrevClick}>
+        <button
+          className="prev"
+          disabled={props.currentPage === 0}
+          onClick={handlePrevClick}
+        >
           Previous
         </button>
         <button className="next" onClick={handleNextClick}>

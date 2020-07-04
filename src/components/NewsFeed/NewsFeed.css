@@ -89,6 +89,10 @@ tr:nth-child(even) {
   cursor: pointer;
 }
 
+.prev:disabled {
+  color: gray;
+}
+
 @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
   .news-feed-data-item.left-align {

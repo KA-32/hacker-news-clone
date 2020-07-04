@@ -79,6 +79,7 @@ function App() {
         previous={previous}
         hideStory={handleHideBtnClick}
         handleUpvote={handleUpvote}
+        currentPage={currentPage}
       />
       {isLoaderVisible && (
         <div className="loader-wrapper">

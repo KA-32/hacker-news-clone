@@ -1,7 +1,7 @@
 /**
- * Root component.
+ * NewsFeed component.
  * @component
- * Initialise view with required components.
+ * Initialise view with news data.
  */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";

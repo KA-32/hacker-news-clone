@@ -33,7 +33,7 @@ app.use(function (req, res, next) {
 app.get("/*", (req, res) => {
   const indexFile = path.resolve("./build/index.html");
   getNews(0).then((response) => {
-    const app = ReactDOMServer.renderToString(<App data={response} isLineChartVisible = {false}/>);
+    const app = ReactDOMServer.renderToNodeStream(<App data={response} isLineChartVisible = {false}/>);
     fs.readFile(indexFile, "utf8", (err, data) => {
       if (err) {
         console.error("Something went wrong:", err);

@@ -13,8 +13,10 @@ function App(props) {
   const [isLoaderVisible, setLoaderVisiblity] = useState(false);
 
   useEffect(() => {
-    console.log("Props", props.data.hits);
-    setNewsFeed(props.data.hits);
+    if (props.data) {
+      console.log("Props", props.data.hits);
+      setNewsFeed(props.data.hits);
+    }
   }, [props]);
 
   useEffect(() => {
@@ -79,7 +81,9 @@ function App(props) {
     <section className="main">
       <NewsFeed
         upvotes={upvotes}
-        data={newsFeed.length === 0 ? props.data.hits : newsFeed}
+        data={
+          newsFeed.length === 0 ? (props.data ? props.data.hits : []) : newsFeed
+        }
         next={next}
         previous={previous}
         hideStory={handleHideBtnClick}

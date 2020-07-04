@@ -5,12 +5,17 @@ import LineChart from "./components/LineChart/LineChart";
 
 import "./App.css";
 
-function App() {
+function App(props) {
   const [newsFeed, setNewsFeed] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [upvotes, setUpvote] = useState({});
   const [isLoaderVisible, setLoaderVisiblity] = useState(false);
+
+  useEffect(() => {
+    console.log("Props", props.data.hits);
+    setNewsFeed(props.data.hits);
+  }, [props]);
 
   useEffect(() => {
     getNewsFeed(0);
@@ -74,7 +79,7 @@ function App() {
     <section className="main">
       <NewsFeed
         upvotes={upvotes}
-        data={newsFeed}
+        data={newsFeed.length === 0 ? props.data.hits : newsFeed}
         next={next}
         previous={previous}
         hideStory={handleHideBtnClick}
@@ -86,8 +91,7 @@ function App() {
           <div className="loader"></div>
         </div>
       )}
-
-      <LineChart data={chartData} />
+      {props.isLineChartVisible && <LineChart data={chartData} />}
     </section>
   );
 }

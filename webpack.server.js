@@ -1,6 +1,7 @@
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
   entry: "./server/index.js",
@@ -8,7 +9,7 @@ module.exports = {
   target: "node",
 
   externals: [nodeExternals()],
-  plugins: [new MiniCssExtractPlugin()],
+  plugins: [new MiniCssExtractPlugin(), new CompressionPlugin()],
   output: {
     globalObject: "this",
     path: path.resolve("server-build"),

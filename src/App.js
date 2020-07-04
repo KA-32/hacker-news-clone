@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import NewsFeed from "./components/NewsFeed/NewsFeed";
 import LineChart from "./components/LineChart/LineChart";
 
-import loaderGif from "./assets/loader.gif";
-
 import "./App.css";
 
 function App() {

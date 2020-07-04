@@ -4,10 +4,10 @@
   "private": false,
   "scripts": {
     "start": "NODE_ENV=production webpack --config webpack.server.js --mode=production -w && node ./server-build/index.js",
-    "local": "react-app-rewired  start",
-    "build": "react-app-rewired  build",
-    "test": "react-app-rewired  test",
-    "eject": "react-app-rewired  eject",
+    "local": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "dev:build-server": "NODE_ENV=development webpack --config webpack.server.js --mode=development -w",
     "dev:start": "nodemon ./server-build/index.js",
     "dev": "npm-run-all --parallel build dev:*"
@@ -41,7 +41,6 @@
     "mini-css-extract-plugin": "^0.9.0",
     "nodemon": "^2.0.4",
     "npm-run-all": "^4.1.5",
-    "react-app-rewired": "^2.1.6",
     "webpack-cli": "^3.3.12",
     "webpack-node-externals": "^1.7.2"
   },

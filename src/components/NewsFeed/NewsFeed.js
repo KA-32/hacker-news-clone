@@ -11,6 +11,22 @@ import "./NewsFeed.css";
 
 const NewsFeed = (props) => {
   const [upvotes, setUpvote] = useState(props.upvotes);
+  const [hiddenStories, setHiddenStories] = useState([]);
+
+  useEffect(() => {
+    let localHiddenStories = localStorage.getItem("hiddenStories");
+    try {
+      let parsedJson = JSON.parse(localHiddenStories);
+      if (parsedJson) {
+        setHiddenStories(parsedJson);
+      } else {
+        setHiddenStories([]);
+      }
+    } catch (err) {
+      setHiddenStories([]);
+      console.log(err);
+    }
+  }, []);
 
   useEffect(() => {
     setUpvote(props.upvotes);
@@ -19,9 +35,11 @@ const NewsFeed = (props) => {
   const handleHideBtnClick = (e) => {
     let index;
     let newsFeedData = [...props.data];
+    let hiddenStoriesId = hiddenStories ? [...hiddenStories] : [];
     for (let i = 0; i < props.data.length; i++) {
       if (props.data[i].objectID === e.currentTarget.dataset.id) {
         index = i;
+        hiddenStoriesId.push(e.currentTarget.dataset.id);
         break;
       }
     }
@@ -29,6 +47,8 @@ const NewsFeed = (props) => {
     if (index || index === 0) {
       newsFeedData.splice(index, 1);
       props.hideStory(newsFeedData);
+      setHiddenStories(hiddenStoriesId);
+      localStorage.setItem("hiddenStories", JSON.stringify(hiddenStoriesId));
     }
   };
 
@@ -61,7 +81,8 @@ const NewsFeed = (props) => {
   const renderRows = () => {
     return props.data.map(function (value, index) {
       return (
-        value.title && (
+        value.title &&
+        !hiddenStories.includes(value.objectID.toString()) && (
           <tr key={value.objectID} className="news-feed-data-row">
             <td className="news-feed-data-item center">{value.num_comments}</td>
             <td className="news-feed-data-item center">

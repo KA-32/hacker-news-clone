@@ -14,7 +14,6 @@ function App(props) {
 
   useEffect(() => {
     if (props.data) {
-      console.log("Props", props.data.hits);
       setNewsFeed(props.data.hits);
     }
   }, [props]);

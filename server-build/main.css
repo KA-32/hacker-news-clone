@@ -89,9 +89,16 @@ tr:nth-child(even) {
   cursor: pointer;
 }
 
+.prev:disabled {
+  color: gray;
+}
+
 @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
-  /* Force table to not be like tables anymore */
+  .news-feed-data-item.left-align {
+    text-align: center;
+  }
+
   table,
   thead,
   tbody,
@@ -101,7 +108,6 @@ tr:nth-child(even) {
     display: block;
   }
 
-  /* Hide table headers (but not display: none;, for accessibility) */
   thead tr {
     position: absolute;
     top: -9999px;
@@ -109,7 +115,7 @@ tr:nth-child(even) {
   }
 
   tr {
-    margin: 0 0 1rem 0;
+    margin: 0;
   }
 
   tr:nth-child(odd) {
@@ -117,7 +123,6 @@ tr:nth-child(even) {
   }
 
   td {
-    /* Behave  like a "row" */
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
@@ -125,20 +130,14 @@ tr:nth-child(even) {
   }
 
   td:before {
-    /* Now like a table header */
     position: absolute;
-    /* Top/left values mimic padding */
-    top: 0;
+    top: 30%;
     left: 6px;
     width: 45%;
     padding-right: 10px;
     white-space: nowrap;
   }
 
-  /*
-		Label the data
-    You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
-		*/
   td:nth-of-type(1):before {
     content: "Comments";
   }
@@ -150,6 +149,13 @@ tr:nth-child(even) {
   }
   td:nth-of-type(4):before {
     content: "News Details";
+    top: 6%;
+    width: 100%;
+  }
+
+  .news-feed-details-wrapper {
+    margin-top: 2em;
+    overflow: hidden;
   }
 }
 
@@ -157,9 +163,10 @@ tr:nth-child(even) {
   text-align: center;
   width: 100%;
   position: relative;
+  margin-bottom: 5em;
 }
 
-.loader {
+.loader-wrapper {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -167,8 +174,35 @@ tr:nth-child(even) {
   top: 0;
 }
 
-.loader img {
-  margin-top: 10%;
-  width: 100px;
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid orange;
+  width: 80px;
+  height: 80px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  margin:10em auto 0 auto;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.recharts-wrapper {
+  margin: 1em auto 0 auto;
+  border-top: 6px solid orange;
+  border-bottom: 6px solid orange;
+  padding: 1em 0;
+}
+
+.recharts-legend-wrapper {
+  visibility: hidden;
 }
 

@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+[![KA-32](https://circleci.com/gh/KA-32/hacker-news-clone.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs)
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -17,9 +17,13 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `yarn run dev`
+**Note:** Use this command to run website in local machine and if SSR is not required.
+
+### `yarn dev`
 Run the application locally by rendering react components on the server side.
 Open [http://localhost:3006](http://localhost:3006) to view it in the browser.(SSR Code)
+- Any changes to server/index.js, will make browser to reload. 
+- If you make changes to React components, then need to build `yarn build` and run `yarn dev` to see the changes.
 
 ### `yarn test`
 

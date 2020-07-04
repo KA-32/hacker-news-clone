@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -10,9 +10,20 @@ import {
 } from "recharts";
 
 const LineChartExample = (props) => {
+  const [chartWidth, setChartWidth] = useState(1200);
+  useEffect(() => {
+    window.addEventListener("resize", (e) => {
+      if (e.currentTarget.innerWidth < 1200) {
+        setChartWidth(e.currentTarget.innerWidth - 50);
+      }else{
+        setChartWidth(1200);
+      }
+    });
+  }, []);
+
   return (
     <LineChart
-      width={1300}
+      width={chartWidth}
       height={300}
       data={props.data}
       margin={{

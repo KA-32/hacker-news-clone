@@ -2,6 +2,7 @@
   text-align: center;
   width: 100%;
   position: relative;
+  margin-bottom: 5em;
 }
 
 .loader {
@@ -15,4 +16,8 @@
 .loader img {
   margin-top: 10%;
   width: 100px;
+}
+
+.recharts-wrapper {
+  margin: 1em auto 0 auto;
 }

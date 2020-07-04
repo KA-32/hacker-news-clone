@@ -29,7 +29,8 @@ function App() {
     let chartValues = newsFeed.map((value) => {
       let chartVal = {};
       chartVal.id = value.objectID;
-      chartVal.votes = (upvotes && upvotes[value.objectID]) ? upvotes[value.objectID] : 0;
+      chartVal.votes =
+        upvotes && upvotes[value.objectID] ? upvotes[value.objectID] : 0;
       return chartVal;
     });
 
@@ -46,7 +47,7 @@ function App() {
       setLoaderVisiblity(false);
       setCurrentPage(page);
       setNewsFeed(jsonData.hits);
-    }else{
+    } else {
       setLoaderVisiblity(true);
       setCurrentPage(page);
       setNewsFeed([]);
@@ -82,11 +83,11 @@ function App() {
         handleUpvote={handleUpvote}
       />
       {isLoaderVisible && (
-        <div className="loader">
-          <img src={loaderGif} alt="Loading indicator" />
+        <div className="loader-wrapper">
+          <div className="loader"></div>
         </div>
       )}
-      
+
       <LineChart data={chartData} />
     </section>
   );

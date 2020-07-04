@@ -1,9 +1,22 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import { render } from "@testing-library/react";
+import App from "./App";
+describe("App component", () => {
+  test("App renders correct table headers", () => {
+    const { getByText } = render(<App />);
+    const commentsElement = getByText(/Comments/i);
+    const voteCountElement = getByText(/Vote Count/i);
+    const upvoteElement = getByText(/Upvote/i);
+    const detailsElement = getByText(/News Details/i);
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/Comments/i);
-  expect(linkElement).toBeInTheDocument();
+    expect(commentsElement).toBeInTheDocument();
+    expect(voteCountElement).toBeInTheDocument();
+    expect(upvoteElement).toBeInTheDocument();
+    expect(detailsElement).toBeInTheDocument();
+  });
+
+  test("App to match snapshot", () => {
+    const app = render(<App />);
+    expect(app).toMatchSnapshot();
+  });
 });

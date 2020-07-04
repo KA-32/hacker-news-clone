@@ -7,7 +7,7 @@ import compression from "compression";
 import helmet from "helmet";
 import ReactDOMServer from "react-dom/server";
 
-import getNews from "./getNews";
+import getNews from "../src/utils/getNews";
 
 import App from "../src/App";
 

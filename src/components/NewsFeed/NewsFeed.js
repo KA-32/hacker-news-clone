@@ -4,6 +4,7 @@
  * Initialise view with required components.
  */
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 import upvoteIcon from "../../assets/ic-upvote.png";
 
@@ -158,6 +159,22 @@ const NewsFeed = (props) => {
       </div>
     </section>
   );
+};
+
+NewsFeed.propTypes = {
+  upvotes: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  next: PropTypes.func.isRequired,
+  previous: PropTypes.func.isRequired,
+  hideStory: PropTypes.func.isRequired,
+  handleUpvote: PropTypes.func.isRequired,
+};
+
+NewsFeed.defaultProps = {
+  upvotes: [],
+  data: [],
+  currentPage: 0,
 };
 
 export default NewsFeed;

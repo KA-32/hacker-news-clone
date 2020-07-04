@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 import NewsFeed from "./components/NewsFeed/NewsFeed";
 import LineChart from "./components/LineChart/LineChart";
 
 import "./App.css";
 
-function App(props) {
+const App = (props) => {
   const [newsFeed, setNewsFeed] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -97,6 +98,16 @@ function App(props) {
       {props.isLineChartVisible && <LineChart data={chartData} />}
     </section>
   );
-}
+};
+
+App.propTypes = {
+  data: PropTypes.object,
+  isLineChartVisible: PropTypes.bool,
+};
+
+App.defaultProps = {
+  data: {},
+  isLineChartVisible: true,
+};
 
 export default App;

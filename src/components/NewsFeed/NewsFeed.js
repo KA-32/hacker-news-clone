@@ -81,22 +81,24 @@ const NewsFeed = (props) => {
               </button>
             </td>
             <td className="news-feed-data-item left-align">
-              <h4 className="news-title">{value.title}</h4>
-              <a href={value.url} className="news-link">
-                {"(" + (value.url ? value.url : "") + ")"}
-              </a>
-              <div className="news-author">
-                <span>By</span>
-                <span className="news-author-name">{value.author}</span>
+              <div className="news-feed-details-wrapper">
+                <h4 className="news-title">{value.title}</h4>
+                <a href={value.url} className="news-link">
+                  {"(" + (value.url ? value.url : "") + ")"}
+                </a>
+                <div className="news-author">
+                  <span>By</span>
+                  <span className="news-author-name">{value.author}</span>
+                </div>
+                <span className="news-last-updated-ts">{value.created_at}</span>
+                <button
+                  className="news-hide"
+                  data-id={value.objectID}
+                  onClick={handleHideBtnClick}
+                >
+                  [hide]
+                </button>
               </div>
-              <span className="news-last-updated-ts">{value.created_at}</span>
-              <button
-                className="news-hide"
-                data-id={value.objectID}
-                onClick={handleHideBtnClick}
-              >
-                [hide]
-              </button>
             </td>
           </tr>
         )

@@ -5,6 +5,7 @@
   "scripts": {
     "start": "NODE_ENV=production webpack --config webpack.server.js --mode=production -w && node ./server-build/index.js",
     "build": "react-scripts build",
+    "postbuild": "gzip build/static/js/*.js && gzip build/static/css/*.css",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev:build-server": "NODE_ENV=development webpack --config webpack.server.js --mode=development -w",

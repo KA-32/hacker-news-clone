@@ -53,9 +53,9 @@ const NewsFeed = (props) => {
       upvotesUpdate[e.currentTarget.dataset.id] = 1;
     }
     setUpvote(upvotesUpdate);
+    //Store upvotes in localstorage.
     localStorage.setItem("upvotes", JSON.stringify(upvotesUpdate));
     props.handleUpvote(upvotesUpdate);
-    //Store upvotes locally.
   };
 
   const renderRows = () => {

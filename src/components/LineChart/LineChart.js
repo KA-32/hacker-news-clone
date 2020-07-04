@@ -10,7 +10,6 @@ import {
 } from "recharts";
 
 const LineChartExample = (props) => {
-
   return (
     <LineChart
       width={1300}
@@ -25,7 +24,7 @@ const LineChartExample = (props) => {
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="id" />
-      <YAxis dataKey="votes"/>
+      <YAxis dataKey="votes" />
       <Tooltip />
       <Legend />
       <Line

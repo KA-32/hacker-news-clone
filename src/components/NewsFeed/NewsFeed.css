@@ -50,7 +50,7 @@
   cursor: pointer;
 }
 
-.news-feed-data-item .upvote-icon{
+.news-feed-data-item .upvote-icon {
   width: 30px;
 }
 
@@ -75,6 +75,10 @@ tr:nth-child(even) {
   text-align: right;
   width: 100%;
   margin: 1em 0;
+  padding-right: 1em;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .prev,

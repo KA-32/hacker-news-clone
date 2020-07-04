@@ -14,6 +14,7 @@ const app = express();
 app.use(helmet());
 app.use(express.static("./build"));
 app.use(compression());
+app.enable('trust proxy'); 
 
 app.use(function (req, res, next) {
   if (req.secure) {

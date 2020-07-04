@@ -7,15 +7,18 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  Label,
 } from "recharts";
 
 const LineChartExample = (props) => {
-  const [chartWidth, setChartWidth] = useState(1200);
+  const [chartWidth, setChartWidth] = useState(
+    window.innerWidth > 1200 ? 1200 : window.innerWidth - 50
+  );
   useEffect(() => {
     window.addEventListener("resize", (e) => {
       if (e.currentTarget.innerWidth < 1200) {
         setChartWidth(e.currentTarget.innerWidth - 50);
-      }else{
+      } else {
         setChartWidth(1200);
       }
     });
@@ -34,8 +37,13 @@ const LineChartExample = (props) => {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="id" />
-      <YAxis dataKey="votes" />
+      <XAxis dataKey="id">
+        <Label value="ID" offset={-15} position="insideBottom" />
+      </XAxis>
+      <YAxis
+        dataKey="votes"
+        label={{ value: "Votes", angle: -90, position: "insideLeft" }}
+      />
       <Tooltip />
       <Legend />
       <Line

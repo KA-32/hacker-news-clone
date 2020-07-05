@@ -12,10 +12,14 @@ const App = (props) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [upvotes, setUpvote] = useState({});
   const [isLoaderVisible, setLoaderVisiblity] = useState(false);
+  const [isNewsdataPresent, setNewsdataPresence] = useState(false);
 
   useEffect(() => {
     if (props.data) {
       setNewsFeed(props.data.hits);
+      setNewsdataPresence(true);
+    } else {
+      setNewsdataPresence(false);
     }
   }, [props]);
 
@@ -54,10 +58,12 @@ const App = (props) => {
       setLoaderVisiblity(false);
       setCurrentPage(page);
       setNewsFeed(jsonData.hits);
+      setNewsdataPresence(true);
     } else {
       setLoaderVisiblity(true);
       setCurrentPage(page);
       setNewsFeed([]);
+      setNewsdataPresence(false);
     }
   };
 
@@ -101,7 +107,7 @@ const App = (props) => {
           <div className="loader"></div>
         </div>
       )}
-      {props.isLineChartVisible && <LineChart data={chartData} />}
+      {isNewsdataPresent && <LineChart data={chartData} />}
     </section>
   );
 };

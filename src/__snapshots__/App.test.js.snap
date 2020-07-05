@@ -85,7 +85,7 @@ Object {
           >
             <defs>
               <clippath
-                id="recharts6-clip"
+                id="recharts5-clip"
               >
                 <rect
                   height="260"
@@ -326,7 +326,7 @@ Object {
         >
           <defs>
             <clippath
-              id="recharts6-clip"
+              id="recharts5-clip"
             >
               <rect
                 height="260"

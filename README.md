@@ -13,7 +13,7 @@ HackerNews Clone uses open source libraries to work properly:
 * [Express](https://expressjs.com/) - For serving the React App in the server
 * [Webpack](https://webpack.js.org/) - for bundling server code.
 * [CircleCI](https://circleci.com/docs/2.0/about-circleci/) - CI/CD and streamline the build process.
-* [Heroku](https://www.heroku.com/free) - For hosting the app. 
+* [Heroku](https://www.heroku.com/free) - For hosting the app.
 
 ## Available Scripts
 
@@ -45,7 +45,7 @@ $ yarn dev
 ```
 
 Run the application locally by rendering react components on the server side.
-Open [http://localhost:3006](http://localhost:3006) to view changes in the browser.(SSR Code)
+Open [http://localhost:8000](http://localhost:8000) to view changes in the browser.(SSR Code)
 
 * Any changes to **server/index.js**, will make browser to reload.
 

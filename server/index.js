@@ -11,7 +11,7 @@ import getNews from "../src/utils/getNews";
 
 import App from "../src/App";
 
-const PORT = process.env.PORT || 3006;
+const PORT = process.env.PORT || 8000;
 
 const app = express();
 

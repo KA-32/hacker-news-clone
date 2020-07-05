@@ -101,7 +101,7 @@ const App = (props) => {
           <div className="loader"></div>
         </div>
       )}
-      {/* {props.isLineChartVisible && <LineChart data={chartData} />} */}
+      {props.isLineChartVisible && <LineChart data={chartData} />}
     </section>
   );
 };

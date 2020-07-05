@@ -13,12 +13,9 @@ jobs:
             - run: npm install
             - run: npm test
 workflows:
-    heroku_deploy:
+    build-and-test:
       jobs:
         - build-and-test
-        - heroku/deploy-via-git:
-            requires:
-              - build-and-test
-            filters:
-              branches:
-                only:master
+    heroku_deploy:
+      jobs:
+        - heroku/deploy-via-git

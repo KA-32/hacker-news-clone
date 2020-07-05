@@ -162,7 +162,7 @@ const NewsFeed = (props) => {
 };
 
 NewsFeed.propTypes = {
-  upvotes: PropTypes.array.isRequired,
+  upvotes: PropTypes.object.isRequired,
   data: PropTypes.array.isRequired,
   currentPage: PropTypes.number.isRequired,
   next: PropTypes.func.isRequired,
@@ -172,7 +172,7 @@ NewsFeed.propTypes = {
 };
 
 NewsFeed.defaultProps = {
-  upvotes: [],
+  upvotes: {},
   data: [],
   currentPage: 0,
 };

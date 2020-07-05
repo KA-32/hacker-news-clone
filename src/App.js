@@ -31,15 +31,17 @@ const App = (props) => {
   }, []);
 
   useEffect(() => {
-    let chartValues = newsFeed.map((value) => {
-      let chartVal = {};
-      chartVal.id = value.objectID;
-      chartVal.votes =
-        upvotes && upvotes[value.objectID] ? upvotes[value.objectID] : 0;
-      return chartVal;
-    });
+    if (newsFeed && newsFeed.length > 0) {
+      let chartValues = newsFeed.map((value) => {
+        let chartVal = {};
+        chartVal.id = value.objectID;
+        chartVal.votes =
+          upvotes && upvotes[value.objectID] ? upvotes[value.objectID] : 0;
+        return chartVal;
+      });
 
-    setChartData(chartValues);
+      setChartData(chartValues);
+    }
   }, [newsFeed, upvotes]);
 
   const getNewsFeed = async (page) => {
@@ -80,9 +82,13 @@ const App = (props) => {
   return (
     <section className="main">
       <NewsFeed
-        upvotes={upvotes}
+        upvotes={upvotes ? upvotes : {}}
         data={
-          newsFeed.length === 0 ? (props.data ? props.data.hits : []) : newsFeed
+          !newsFeed || newsFeed.length === 0
+            ? props.data
+              ? props.data.hits
+              : []
+            : newsFeed
         }
         next={next}
         previous={previous}

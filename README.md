@@ -77,10 +77,11 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 >**Note:** Use this command along with `yarn dev` to see SSR changes in local machine.
 
 ## Approach
-* Create an app using ReactJs. 
+
+* Create an app using ReactJs.
 * Use nodejs and express framework to setup server and render app on the server.
 * Setup CircleCI account and add CI/CD pipeline
-* Setup Heroku account and use to host the app. 
+* Setup Heroku account and use to host the app.
 
 ## Learn More
 

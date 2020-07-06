@@ -1,8 +1,14 @@
+/**
+ * This is the root component.
+ * Acts as starting point.
+ */
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import NewsFeed from "./components/NewsFeed/NewsFeed";
 import LineChart from "./components/LineChart/LineChart";
+
+import getNews from "./utils/getNews";
 
 import "./App.css";
 
@@ -24,16 +30,23 @@ const App = (props) => {
   }, [props]);
 
   useEffect(() => {
-    getNewsFeed(0);
+    getNewsFeed(0); //get page 0 data from the API.
+    //get upvotes stored in localstorage and the upvote count for each story
     let upvotes = localStorage.getItem("upvotes");
     try {
       let parsedJson = JSON.parse(upvotes);
-      setUpvote(parsedJson);
+      if (parsedJson) {
+        setUpvote(parsedJson);
+      } else {
+        setUpvote({});
+      }
     } catch (err) {
-      console.log(err);
+      console.log("Local Storage: Error while fetching stored upvotes", err);
+      setUpvote({});
     }
   }, []);
 
+  //Set the chart data.
   useEffect(() => {
     if (newsFeed && newsFeed.length > 0) {
       let chartValues = newsFeed.map((value) => {
@@ -50,21 +63,20 @@ const App = (props) => {
 
   const getNewsFeed = async (page) => {
     setLoaderVisiblity(true);
-    const newsFeedResponse = await fetch(
-      `https://hn.algolia.com/api/v1/search_by_date?page=${page}&tags=story`
-    );
-    if (newsFeedResponse.ok) {
-      let jsonData = await newsFeedResponse.json();
-      setLoaderVisiblity(false);
-      setCurrentPage(page);
-      setNewsFeed(jsonData.hits);
-      setNewsdataPresence(true);
-    } else {
-      setLoaderVisiblity(true);
-      setCurrentPage(page);
-      setNewsFeed([]);
-      setNewsdataPresence(false);
-    }
+    getNews(page)
+      .then((res) => {
+        setLoaderVisiblity(false);
+        setCurrentPage(page);
+        setNewsFeed(res.hits);
+        setNewsdataPresence(true);
+      })
+      .catch((err) => {
+        console.log("NewsFeed: Error while fetching news data", err);
+        setLoaderVisiblity(true);
+        setCurrentPage(page);
+        setNewsFeed([]);
+        setNewsdataPresence(false);
+      });
   };
 
   const next = () => {

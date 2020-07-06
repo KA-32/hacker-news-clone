@@ -4,12 +4,12 @@
 
 This is a clone of HackerNews website. Made use of React and its SSR API. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Tech
+## Tech Stack
 
 HackerNews Clone uses open source libraries to work properly:
 
-* [ReactJS](http://reactjs.org/) - HTML enhanced for web apps!
-* [node.js](https://nodejs.org/en/) - evented I/O for the backend
+* [ReactJS](http://reactjs.org/) - For building UI components!
+* [node.js](https://nodejs.org/en/) - For server code.
 * [Express](https://expressjs.com/) - For serving the React App in the server
 * [Webpack](https://webpack.js.org/) - for bundling server code.
 * [CircleCI](https://circleci.com/docs/2.0/about-circleci/) - CI/CD and streamline the build process.
@@ -75,6 +75,12 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 >**Note:** Use this command along with `yarn dev` to see SSR changes in local machine.
+
+## Approach
+* Create an app using ReactJs. 
+* Use nodejs and express framework to setup server and render app on the server.
+* Setup CircleCI account and add CI/CD pipeline
+* Setup Heroku account and use to host the app. 
 
 ## Learn More
 

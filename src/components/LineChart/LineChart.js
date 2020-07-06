@@ -14,12 +14,21 @@ const LineChartExample = (props) => {
   const [chartWidth, setChartWidth] = useState(
     window.innerWidth > 1200 ? 1200 : window.innerWidth - 50
   );
+
   useEffect(() => {
+    let throttled = false;
+    let delay = 250;
     window.addEventListener("resize", (e) => {
-      if (e.currentTarget.innerWidth < 1200) {
-        setChartWidth(e.currentTarget.innerWidth - 50);
-      } else {
-        setChartWidth(1200);
+      if (!throttled) {
+        if (e.currentTarget.innerWidth < 1200) {
+          setChartWidth(e.currentTarget.innerWidth - 50);
+        } else {
+          setChartWidth(1200);
+        }
+        throttled = true;
+        setTimeout(function () {
+          throttled = false;
+        }, delay);
       }
     });
   }, []);

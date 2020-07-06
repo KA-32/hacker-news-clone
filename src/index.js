@@ -1,10 +1,17 @@
+/**
+ * Hydrate react component. 
+ */
 import React from "react";
 import ReactDOM from "react-dom";
+
 import "./index.css";
+
 import App from "./App";
+
 import * as serviceWorker from "./serviceWorker";
 import getNews from "./utils/getNews";
 
+//Get First page of news data.
 getNews(0)
   .then((res) => {
     ReactDOM.hydrate(
